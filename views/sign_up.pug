@@ -1,0 +1,27 @@
+extends form_layout 
+
+block content 
+    .form-container 
+        h1 Sign Up
+        form(method="POST")
+            .input-box
+                input(type="text", name="first_name", id="first_name")
+                span First Name
+            .input-box
+                input(type="text", name="last_name", id="last_name")
+                span Last Name
+            .input-box
+                input(type="text", name="username", id="username")
+                span Username
+            .input-box
+                input(type="password", name="password", id="password")
+                span Password
+            .input-box
+                input(type="password", name="confirm_password", id="confirm-password")
+                span Confirm Password
+            input(type="submit", value="Sign Up")
+        
+        if errors 
+            ul(class="errors")
+                for error in errors 
+                    li.text-danger!= error.msg 
