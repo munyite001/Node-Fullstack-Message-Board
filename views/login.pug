@@ -1,0 +1,22 @@
+extends form_layout 
+
+block content 
+    .form-container 
+        h1= title
+        form(method="POST")
+            .input-box
+                input(type="text", name="username", id="username")
+                span Username
+            .input-box
+                input(type="password", name="password", id="password")
+                span Password
+            input(type="submit", value="Login")
+        
+        if errors 
+            ul(class="errors")
+                for error in errors 
+                    li.text-danger!= error.msg 
+        if error_messages.length
+            ul(class="errors")
+                each message in error_messages
+                    li.text-danger!= message

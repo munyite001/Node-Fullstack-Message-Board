@@ -5,6 +5,7 @@ const User = require('../models/user')
 const { body, validationResult } = require('express-validator')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
+const passport = require("../config/passport")
 
 
 //  Display User Sign Up form on get
@@ -87,4 +88,54 @@ exports.user_signup_post = [
         }
     })
 
+]
+
+//  Display User Login form on get
+exports.user_login_get = asyncHandler(async (req, res, next) => {
+    res.render("login", { title: "Log In" })
+})
+
+//  Handle User Login on post
+exports.user_login_post = [
+    //  Validate and sanitize inputs
+    body("username")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Username must be specified.")
+    .escape(),
+    body("password")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Password must be specified.")
+    .escape(),
+
+    //  Process request after validation and sanitization
+    asyncHandler(async (req, res, next) => {
+        // Extract the validation errors from a request
+        const errors = validationResult(req)
+
+        //  Check if there are errors
+        if (!errors.isEmpty()) {
+            res.render("login", { title: "Log In", errors: errors.array() })
+            return
+        } else {
+            // Authenticate the user
+            passport.authenticate('local', (err, user, info) => {
+                if (err) {
+                return next(err);
+                }
+                if (!user) {
+                req.flash('error', 'Invalid username or password.');
+                return res.redirect('/app/login');
+                }
+                req.logIn(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                req.flash('success', 'You are now logged in.');
+                return res.redirect('/');
+                });
+            })(req, res, next);
+        }
+    })
 ]
