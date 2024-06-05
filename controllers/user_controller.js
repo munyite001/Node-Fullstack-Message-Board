@@ -1,5 +1,6 @@
 //  Import the User models
 const User = require('../models/user')
+const Message = require('../models/message')
 
 //  Import additional required modules
 const { body, validationResult } = require('express-validator')
@@ -136,6 +137,37 @@ exports.user_login_post = [
                 return res.redirect('/');
                 });
             })(req, res, next);
+        }
+    })
+]
+
+exports.user_join_post = [
+    //  Validate and sanitize inputs
+    body("secret")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Secret phrase must be specified.")
+    .escape(),
+
+    //  Process request after validation and sanitization
+    asyncHandler(async (req, res, next) => {
+        const allMessages = await Message.find({}).sort({ timestamp: -1 }).populate("author").exec()
+        //  Extract the validation errors from a request
+        const errors = validationResult(req)
+
+        //  Check if there are errors
+        if (!errors.isEmpty()) {
+            res.render("index", { title: "Message Board Home", errors: errors.array(), allMessages: allMessages})
+            return
+        } else {
+            //  Check if the secret phrase is correct
+            if (req.body.secret === "billionaire") {
+                //  Update the user's membership status
+                await User.findByIdAndUpdate(req.user._id, { membership_status: true })
+                res.redirect("/")
+            } else {
+                res.render("index", { title: "Message Board Home", errors: [{ msg: "Incorrect secret phrase." }], allMessages: allMessages})
+            }
         }
     })
 ]

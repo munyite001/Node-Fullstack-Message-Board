@@ -1,4 +1,57 @@
 extends layout
 
-block content
-  p This is just to show that the app route is working
+block navLinks
+  if user
+    div.links
+      if user.membership_status
+        a(class="message-btn") New Message
+      else
+        a(class="join-btn") Join Club
+    div.auth-links
+      a(href="/app/logout") Logout
+  else
+    div.auth-links
+      a(href="/app/login") Login
+      a(href="/app/sign-up") Signup
+block content 
+  if user 
+    div.message-modal-overlay
+      div.control
+        i(class="fas fa-times close-message-modal")
+      div.message-modal
+        h2 post your anonymous message
+        form(action="/app/messages" method="POST" class="message-form")
+          textarea(name="message" placeholder="Enter your message")
+          button(type="submit") Send
+
+    div.join-modal-overlay
+      div.control
+        i(class="fas fa-times close-join-modal")
+      div.join-modal
+        h2 if a secret phrase is what you seek, the source code you might want to peek
+        form(action="/app/join" method="POST" class="join-form")
+          input(name="secret" placeholder="Enter secret phrase")
+          button(type="submit") Send
+  div.secret-phrase
+    p(class="secret-phrase" style="display: none") Secret phrase is "billionaire"
+  div.message-container
+    each message in allMessages
+      div.message
+        div.top-wrapper
+          p= message.message
+          if user 
+            p(class="timestamp")= message.createdAt
+        if user 
+          p(class="message-author")= message.author.username
+        else 
+          p(class="message-author")= "Anonymous"
+
+    if errors 
+      ul(class="errors")
+        for error in errors 
+          li.text-danger!= error.msg 
+
+  script(src="/javascripts/script.js")
+  script(src="/javascripts/messageModal.js")
+  script(src="/javascripts/joinModal.js")
+

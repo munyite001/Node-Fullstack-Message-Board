@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 :root {
   /* Primary Colors */
@@ -32,9 +32,13 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
 }
@@ -134,3 +138,169 @@ body {
 .errors {
   margin: 1rem;
 }
+
+header {
+  width: 100%;
+  height: 3.5rem;
+}
+
+nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 0 .3rem 1rem rgba(0,0,0,.1);
+}
+
+nav .logo {
+  font-size: 1.5rem;
+  color: var(--marine-blue);
+  font-family: "Pacifico", cursive;
+}
+
+.logo a {
+  color: black;
+}
+
+.auth-links {
+  margin-left: auto;
+}
+
+.auth-links a {
+  margin: 0 1rem;
+  background-color: var(--pastel-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.auth-links a:hover {
+  border: 1px solid var(--pastel-blue);
+  background-color: white;
+  color: var(--pastel-blue);
+}
+
+.links {
+  margin: 0 1rem 0 auto;
+}
+
+.links a {
+  cursor: pointer;
+  margin: 0 1rem;
+  color: var(--marine-blue);
+  transition: all 0.2s ease-in-out;
+}
+
+.links a:hover {
+  letter-spacing: 0.1rem;
+  color: var(--purplish-blue);
+}
+
+.message-modal-overlay, .join-modal-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.8);  
+}
+
+.show-modal {
+  display: grid;
+  place-items: center;
+}
+
+.message-modal-overlay .control, .join-modal-overlay .control{
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+
+.message-modal-overlay .control i, .join-modal-overlay .control i {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.message-modal-overlay .control i:hover, .join-modal-overlay .control i:hover{
+  color: var(--strawberry-red);
+  transform: rotate(180deg);
+}
+
+.message-modal, .join-modal {
+  width: 300px;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.message-modal h2, .join-modal h2 {
+  color: var(--marine-blue);
+  text-transform: capitalize;
+  font-size: 16px;
+}
+
+.message-modal form, .join-modal form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.message-modal form textarea, .join-modal form input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--pastel-blue);
+}
+
+.message-modal form button, .join-modal form button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: var(--purplish-blue);
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.message-container {
+  width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;;
+}
+
+.message {
+  padding: 0.5rem;
+  margin: 0.2rem 0;
+  border-radius: 5px;
+  width: 100%;
+  background-color: var(--magnolia);
+}
+
+.message .timestamp {
+  font-size: 0.8rem;
+  color: var(--cool-gray);
+
+}
+.message-author {
+  font-weight: var(--font-weight-bold);
+  color: var(--marine-blue);
+}
+
+.message .top-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -24,5 +24,25 @@ router.get('/login', user_controller.user_login_get)
 //  Post request for user login
 router.post('/login', user_controller.user_login_post)
 
+//  Secret phrase to join the club
+router.post("/join", user_controller.user_join_post)
+
+//  Post request for message
+router.post('/messages', message_controller.message_post)
+
+//  Get all messages
+router.get("/messages", message_controller.messages_get)
+
+
+//  Get request for user logout
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) { 
+            return next(err) 
+        }
+        res.redirect("/")
+    })
+})
+
 
 module.exports = router;

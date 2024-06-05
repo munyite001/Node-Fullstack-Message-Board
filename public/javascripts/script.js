@@ -30,3 +30,23 @@ window.addEventListener('load', () => {
         }
     })
 })
+
+
+// // Dynamically load the messages
+// document.addEventListener('DOMContentLoaded', function() {
+//     fetch("/app/messages")
+//     .then(response => response.json())
+//     .then(messages => {
+//         const messageContainer = document.querySelector(".message-container")
+//         messages.forEach((message) => {
+//             const messageElement = document.createElement('div');
+//             messageElement.classList.add('message');
+//             messageElement.innerHTML = `
+//             <p>${message.message}</p>
+//             <small>Posted by ${message.author.username} on ${new Date(message.timestamp).toLocaleString()}</small>
+//         `;
+//         messageContainer.appendChild(messageElement);
+//         })
+//     })
+//     .catch((err) => console.log(`Error fetching messages: ${err}`))
+// })
