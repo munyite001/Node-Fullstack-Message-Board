@@ -269,7 +269,8 @@ nav .logo {
 }
 
 .message-container {
-  width: 400px;
+  width: 80%;
+  max-width: 400px;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
